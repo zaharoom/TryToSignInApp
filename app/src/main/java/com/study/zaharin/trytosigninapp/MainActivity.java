@@ -3,8 +3,6 @@ package com.study.zaharin.trytosigninapp;
 import android.app.FragmentTransaction;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
-
 
 public class MainActivity extends FragmentActivity {
 
