@@ -18,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 public class MainFragment extends Fragment implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
@@ -29,12 +30,15 @@ public class MainFragment extends Fragment implements View.OnClickListener, Goog
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions
                 .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
+        // Build a GoogleApiClient with access to the Google Sign-In API and the
+        // options specified by gso.
         gapi = new GoogleApiClient.Builder(getActivity())
                 .enableAutoManage((FragmentActivity) getActivity(), this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
@@ -44,7 +48,10 @@ public class MainFragment extends Fragment implements View.OnClickListener, Goog
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
-        v.findViewById(R.id.sign_in_button).setOnClickListener(this);
+        //set dimensions and listener to the sign-in button
+        SignInButton signInButton = (SignInButton) v.findViewById(R.id.sign_in_button);
+        signInButton.setSize(SignInButton.SIZE_STANDARD);
+        signInButton.setOnClickListener(this);
         return v;
     }
 
@@ -76,6 +83,10 @@ public class MainFragment extends Fragment implements View.OnClickListener, Goog
         }
     }
 
+    /**
+     * Launches InfoFragment
+     * @param result
+     */
     private void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
             GoogleSignInAccount acct = result.getSignInAccount();

@@ -13,7 +13,6 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d("myLog", "onCreate Activity");
         MainFragment fragment = new MainFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.activity_main, fragment);
